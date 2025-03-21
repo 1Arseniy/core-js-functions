@@ -95,10 +95,25 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...arg) {
+  let y;
+  const arr = arg.reverse();
+  switch (arr.length) {
+    case 3:
+      y = (x) => arr[2] * x ** arr[2] + arr[1] * x + arr[0];
+      break;
+    case 2:
+      y = (x) => arr[1] * x + arr[0];
+      break;
+    case 1:
+      y = () => arr[0];
+      break;
+    default:
+      y = null;
+      break;
+  }
+  return y;
 }
-
 /**
  * Memoizes passed function and returns function
  * which invoked first time calls the passed function and then always returns cached result.
@@ -114,9 +129,10 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(/* func */) {
+  // console.log(func());
   throw new Error('Not implemented');
 }
-
+// console.log(memoize(() => Math.random()));
 /**
  * Returns the function trying to call the passed function and if it throws,
  * retrying it specified number of attempts.
@@ -197,8 +213,14 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let index = 0;
+  const numPlus = (start = startFrom) => {
+    const plus = start + index;
+    index += 1;
+    return plus;
+  };
+  return numPlus;
 }
 
 module.exports = {
